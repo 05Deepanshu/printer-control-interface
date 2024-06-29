@@ -12,22 +12,16 @@ from PyQt6.QtWidgets import QSpinBox
 from PyQt6.QtWidgets import QLineEdit
 from PyQt6.QtCore import Qt
 
-# Mock API functions 
 def get_printers():
     return ["Printer 1", "Printer 2", "Printer 3"]
-
 def get_printer_status(printer_id):
     return f"Status: Online, Paper: OK, Ink: 75%"
-
 def send_print_job(printer_id, document, options):
     return "Job sent successfully"
-
 def cancel_print_job(printer_id, job_id):
     return f"Job {job_id} cancelled"
-
 def get_print_queue(printer_id):
     return ["Job 1: Document A", "Job 2: Document B"]
-
 def perform_maintenance(printer_id, task):
     return f"Maintenance task '{task}' completed"
 
@@ -42,7 +36,6 @@ class PrinterControlGUI(QMainWindow):
         main_layout = QVBoxLayout()
         main_widget.setLayout(main_layout)
 
-        # Printer selection
         printer_layout = QHBoxLayout()
         self.printer_combo = QComboBox()
         self.printer_combo.addItems(get_printers())
@@ -50,11 +43,10 @@ class PrinterControlGUI(QMainWindow):
         printer_layout.addWidget(self.printer_combo)
         main_layout.addLayout(printer_layout)
 
-        # Printer status
         self.status_label = QLabel("Printer Status: ")
         main_layout.addWidget(self.status_label)
 
-        # Print job options
+        
         job_layout = QHBoxLayout()
         self.copies_spin = QSpinBox()
         self.copies_spin.setMinimum(1)
@@ -69,17 +61,14 @@ class PrinterControlGUI(QMainWindow):
         job_layout.addWidget(self.quality_combo)
         main_layout.addLayout(job_layout)
 
-        # Send print job button
         self.send_job_button = QPushButton("Send Print Job")
         main_layout.addWidget(self.send_job_button)
 
-        # Print queue
         self.queue_text = QTextEdit()
         self.queue_text.setReadOnly(True)
         main_layout.addWidget(QLabel("Print Queue:"))
         main_layout.addWidget(self.queue_text)
 
-        # Cancel job
         cancel_layout = QHBoxLayout()
         self.cancel_job_edit = QLineEdit()
         self.cancel_job_button = QPushButton("Cancel Job")
@@ -88,7 +77,6 @@ class PrinterControlGUI(QMainWindow):
         cancel_layout.addWidget(self.cancel_job_button)
         main_layout.addLayout(cancel_layout)
 
-        # Maintenance
         maintenance_layout = QHBoxLayout()
         self.maintenance_combo = QComboBox()
         self.maintenance_combo.addItems(["Clean Print Heads", "Align Printer"])
@@ -97,13 +85,11 @@ class PrinterControlGUI(QMainWindow):
         maintenance_layout.addWidget(self.maintenance_button)
         main_layout.addLayout(maintenance_layout)
 
-        # Connect signals
         self.printer_combo.currentIndexChanged.connect(self.update_printer_status)
         self.send_job_button.clicked.connect(self.send_print_job)
         self.cancel_job_button.clicked.connect(self.cancel_print_job)
         self.maintenance_button.clicked.connect(self.perform_maintenance)
 
-        # Initial status update
         self.update_printer_status()
         self.update_print_queue()
 
@@ -142,7 +128,6 @@ class PrinterControlGUI(QMainWindow):
         self.queue_text.setText("\n".join(queue))
 
     def show_message(self, message):
-        # In a real application, you might want to use a QMessageBox here
         print(message)
 
 if __name__ == "__main__":
